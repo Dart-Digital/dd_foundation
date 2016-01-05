@@ -7,20 +7,28 @@
  *   The specific JS file to add.
  */
 function dd_foundation_add_foundation_js($file = '') {
-  $path_to_foundation = libraries_get_path('foundation');
+  $path_to_foundation = libraries_get_path('foundation-sites');
 
   $scripts = drupal_add_js();
 
   // Always make sure we add the Foundation JS file.
-  if (!isset($scripts[$path_to_foundation . '/js/foundation/foundation.js'])) {
-    drupal_add_js($path_to_foundation . '/js/foundation/foundation.js', array('group' => JS_LIBRARY));
+  if (!isset($scripts[$path_to_foundation . '/js/foundation.core.js'])) {
+    drupal_add_js($path_to_foundation . '/js/foundation.core.js', array('group' => JS_LIBRARY));
+    drupal_add_js($path_to_foundation . '/js/foundation.util.box.js', array('group' => JS_LIBRARY));
+    drupal_add_js($path_to_foundation . '/js/foundation.util.keyboard.js', array('group' => JS_LIBRARY));
+    drupal_add_js($path_to_foundation . '/js/foundation.util.mediaQuery.js', array('group' => JS_LIBRARY));
+    drupal_add_js($path_to_foundation . '/js/foundation.util.motion.js', array('group' => JS_LIBRARY));
+    drupal_add_js($path_to_foundation . '/js/foundation.util.nest.js', array('group' => JS_LIBRARY));
+    drupal_add_js($path_to_foundation . '/js/foundation.util.timerAndImageLoader.js', array('group' => JS_LIBRARY));
+    drupal_add_js($path_to_foundation . '/js/foundation.util.touch.js', array('group' => JS_LIBRARY));
+    drupal_add_js($path_to_foundation . '/js/foundation.util.triggers.js', array('group' => JS_LIBRARY));
   }
 
   if (!isset($scripts[drupal_get_path('module', 'dd_foundation') . '/js/foundation.js'])) {
     drupal_add_js(drupal_get_path('module', 'dd_foundation') . '/js/foundation.js');
   }
 
-  if (!empty($file) && !isset($scripts[$path_to_foundation . '/js/foundation/' . $file])) {
-    drupal_add_js($path_to_foundation . '/js/foundation/' . $file, array('group' => JS_LIBRARY));
+  if (!empty($file) && !isset($scripts[$path_to_foundation . '/js/' . $file])) {
+    drupal_add_js($path_to_foundation . '/js/' . $file, array('group' => JS_LIBRARY));
   }
 }
