@@ -5,15 +5,8 @@
 
 (function ($, Drupal, window, document, undefined) {
   Drupal.behaviors.foundation = {
-    reflow: false,
     attach: function(context, settings) {
       $(document).foundation();
-
-      if (Drupal.behaviors.foundation.reflow) {
-        $(document).foundation('reflow');
-      }
-
-      Drupal.behaviors.foundation.reflow = true;
     }
   }
 
