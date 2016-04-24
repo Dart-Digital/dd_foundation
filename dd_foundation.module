@@ -32,3 +32,44 @@ function dd_foundation_add_foundation_js($file = '') {
     drupal_add_js($path_to_foundation . '/js/' . $file, array('group' => JS_LIBRARY));
   }
 }
+
+/**
+ * Implements hook_theme().
+ */
+function dd_foundation_theme() {
+  $return = array();
+
+  $return['dd_foundation_img_interchange'] = array(
+    'template' => 'dd-foundation-img-interchange',
+    'variables' => array(
+      'small' => null,
+      'medium' => null,
+      'large' => null,
+      'alt' => '',
+      'title' => '',
+    ),
+  );
+
+  return $return;
+}
+
+/**
+ * Implements hook_preprocess().
+ */
+function dd_foundation_preprocess_dd_foundation_img_interchange(&$variables) {
+  dd_foundation_add_foundation_js('foundation.interchange.js');
+
+  // Fallback to small image if medium one is not uploaded.
+  if (empty($variables['medium'])) {
+    $variables['medium'] = $variables['small'];
+  }
+
+  // Fallback to medium image if large one is not uploaded.
+  if (empty($variables['large'])) {
+    $variables['large'] = $variables['medium'];
+  }
+
+  $variables['small'] = image_style_url('dd_small', $variables['small']);
+  $variables['medium'] = image_style_url('dd_medium', $variables['medium']);
+  $variables['large'] = image_style_url('dd_large', $variables['large']);
+}
